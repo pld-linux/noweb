@@ -22,6 +22,18 @@ remaining as simple as possible.
 noweb jest najprostszym możliwym narzędziem służącym do programowania
 literackiego.
 
+%package examples
+Summary:	noweb examples
+Summary(pl.UTF-8):	Przykładowe dla noweb
+Group:		Documentation
+Requires:	%{name} = %{version}-%{release}
+
+%description examples
+noweb examples.
+
+%description -l pl.UTF-8
+Przykładowe programy wykorzystujące noweb.
+
 %prep
 %setup -q
 
@@ -33,6 +45,10 @@ cd src
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT%{_examplesdir}
+
+cp -a  examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 cd src
 # XXX Where to put .el files?
@@ -59,7 +75,25 @@ cd src
 %attr(755,root,root) %{_bindir}/noweb
 %attr(755,root,root) %{_bindir}/nuweb2noweb
 
-%{_libdir}/noweb
+%dir %{_libdir}/noweb
+
+%attr(755,root,root) %{_libdir}/noweb/btdefn
+%attr(755,root,root) %{_libdir}/noweb/emptydefn
+%attr(755,root,root) %{_libdir}/noweb/finduses
+%attr(755,root,root) %{_libdir}/noweb/h2a
+%attr(755,root,root) %{_libdir}/noweb/markup
+%attr(755,root,root) %{_libdir}/noweb/mnt
+%attr(755,root,root) %{_libdir}/noweb/noidx
+%attr(755,root,root) %{_libdir}/noweb/nt
+%attr(755,root,root) %{_libdir}/noweb/nwmtime
+%attr(755,root,root) %{_libdir}/noweb/pipedocs
+%attr(755,root,root) %{_libdir}/noweb/toascii
+%attr(755,root,root) %{_libdir}/noweb/tohtml
+%attr(755,root,root) %{_libdir}/noweb/toroff
+%attr(755,root,root) %{_libdir}/noweb/totex
+%attr(755,root,root) %{_libdir}/noweb/unmarkup
+
+%{_libdir}/noweb/tmac.w
 
 %{_mandir}/man1/cpif.1*
 %{_mandir}/man1/htmltoc.1*
@@ -78,6 +112,9 @@ cd src
 
 %{_datadir}/texmf/noweb
 
+%files examples
+%defattr(644,root,root,755)
+%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
