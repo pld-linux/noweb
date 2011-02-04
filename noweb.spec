@@ -31,7 +31,7 @@ Requires:	%{name} = %{version}-%{release}
 %description examples
 noweb examples.
 
-%description -l pl.UTF-8
+%description examples -l pl.UTF-8
 Przykładowe programy wykorzystujące noweb.
 
 %prep
